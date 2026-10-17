@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --color-primary: #00ff41;
+  --color-primary-dim: rgba(0, 255, 65, 0.3);
+  --color-primary-glow: rgba(0, 255, 65, 0.15);
+  --color-accent: #ff6600;
+  --color-accent-dim: rgba(255, 102, 0, 0.3);
+  --color-danger: #ff0033;
+  --color-danger-dim: rgba(255, 0, 51, 0.3);
+  --color-surface: #0a0e14;
+  --color-surface-alt: #111927;
+  --color-surface-light: #1a2332;
+  --color-border: rgba(0, 255, 65, 0.15);
+  --color-text-primary: #e0e6ed;
+  --color-text-secondary: #8899aa;
+  --color-text-muted: #556677;
+  --font-display: 'Orbitron', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-ui: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+/* Scanline effect overlay */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* Glow text effect */
+.glow-text {
+  text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary-dim);
+}
+
+.glow-text-accent {
+  text-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent-dim);
+}
+
+.glow-text-danger {
+  text-shadow: 0 0 10px var(--color-danger), 0 0 20px var(--color-danger-dim);
+}
+
+/* Panel styling */
+.tactical-panel {
+  background: rgba(17, 25, 39, 0.92);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(8px);
+}
+
+.tactical-panel-accent {
+  background: rgba(17, 25, 39, 0.92);
+  border: 1px solid rgba(255, 102, 0, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.tactical-panel-danger {
+  background: rgba(17, 25, 39, 0.92);
+  border: 1px solid rgba(255, 0, 51, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+/* Animated border glow */
+@keyframes borderPulse {
+  0%, 100% { border-color: var(--color-border); }
+  50% { border-color: var(--color-primary-dim); }
+}
+
+@keyframes borderDanger {
+  0%, 100% { border-color: rgba(255, 0, 51, 0.2); }
+  50% { border-color: rgba(255, 0, 51, 0.6); }
+}
+
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes dataScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.animate-pulse-slow {
+  animation: blink 2s ease-in-out infinite;
+}
+
+.animate-border-pulse {
+  animation: borderPulse 3s ease-in-out infinite;
+}
+
+.animate-border-danger {
+  animation: borderDanger 1s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dim);
+}
+
+/* Grid lines background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glitch slide — used by GlitchEffect component */
+@keyframes glitchSlide {
+  0%   { transform: translateX(0) skewX(0deg); opacity: 0.15; }
+  20%  { transform: translateX(-8px) skewX(-2deg); opacity: 0.2; }
+  40%  { transform: translateX(6px) skewX(1deg); opacity: 0.1; }
+  60%  { transform: translateX(-4px) skewX(-1deg); opacity: 0.18; }
+  80%  { transform: translateX(3px) skewX(0.5deg); opacity: 0.12; }
+  100% { transform: translateX(0) skewX(0deg); opacity: 0; }
+}
+
+/* Shimmer — used by action buttons */
+@keyframes shimmer {
+  0%   { opacity: 0.3; }
+  50%  { opacity: 0.8; }
+  100% { opacity: 0.3; }
+}
+
+/* Fade out — used by ScreenFlash */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Scan line sweep — vertical ticker */
+@keyframes scanSweep {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Pulse ring — radar detection */
+@keyframes pulseRing {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Text flicker — terminal style */
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.4; }
+}
+
+.animate-flicker {
+  animation: flicker 4s linear infinite;
+}
+
+/* Spinning loader */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Corner bracket accent used in UI */
+.corner-bracket {
+  position: relative;
+}
+.corner-bracket::before,
+.corner-bracket::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--color-primary);
+  border-style: solid;
+  opacity: 0.4;
+}
+.corner-bracket::before {
+  top: 0; left: 0;
+  border-width: 1px 0 0 1px;
+}
+.corner-bracket::after {
+  bottom: 0; right: 0;
+  border-width: 0 1px 1px 0;
+}
+

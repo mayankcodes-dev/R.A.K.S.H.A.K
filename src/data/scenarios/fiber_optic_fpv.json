@@ -1,0 +1,76 @@
+{
+  "scenario": {
+    "id": "fiber_optic_fpv",
+    "name": "Silent Intruder — Fiber-Optic FPV Drone",
+    "briefing": "CLASSIFIED — PRIORITY ALPHA\n\nIntelligence reports confirm insurgent elements in Sector 4 have acquired fiber-optic FPV drones from cross-border supply chains.\n\nThese platforms emit ZERO radio frequency signature. They are completely immune to electronic warfare countermeasures including RF jamming and GPS spoofing.\n\nThe fiber-optic control link operates through a physical tether, making the drone invisible to standard C-UAS detection systems that rely on RF signature analysis.\n\nYour mission: Detect, classify, and neutralize the incoming threat using appropriate countermeasures.\n\nRemember: Wrong countermeasure selection wastes critical engagement time and may result in mission failure.\n\nGood luck, Operator.",
+    "environment": {
+      "timeOfDay": "night",
+      "weather": "clear",
+      "terrain": "urban_edge",
+      "visibility": "low"
+    },
+    "threatProfile": {
+      "type": "fiber_optic_fpv",
+      "name": "Fiber-Optic FPV Drone",
+      "rcs": 0.008,
+      "maxSpeed": 22.5,
+      "rfSignature": null,
+      "microDopplerDetectable": true,
+      "vulnerabilities": ["kinetic_intercept", "net_capture", "directed_energy"],
+      "immuneTo": ["rf_jam", "gps_spoof", "protocol_hijack"]
+    },
+    "events": [
+      {
+        "time": 0,
+        "type": "SPAWN",
+        "description": "Unknown track appears on radar at 2km",
+        "dronePosition": [400, 50, 0],
+        "statusUpdate": "SCANNING — Searching for contacts..."
+      },
+      {
+        "time": 5,
+        "type": "RADAR_CONTACT",
+        "description": "Micro-Doppler signature detected — rotor blade beat frequency identified",
+        "rfSignature": null,
+        "microDoppler": true,
+        "microDopplerFreq": 245.6,
+        "radarBlipPosition": { "x": 140, "y": 60 },
+        "statusUpdate": "CONTACT — Track 0042 acquired"
+      },
+      {
+        "time": 10,
+        "type": "CLASSIFICATION",
+        "description": "RF Spectrum Analysis: NO SIGNAL DETECTED. Micro-Doppler confirms rotary-wing UAS.",
+        "classification": "UNIDENTIFIED_UAS",
+        "confidence": 0.72,
+        "statusUpdate": "CLASSIFYING — RF silent, micro-Doppler positive"
+      },
+      {
+        "time": 15,
+        "type": "PROMPT_ACTION",
+        "description": "Threat closing at 800m. RF spectrum: BLANK. Select countermeasure NOW.",
+        "correctAction": "KINETIC_INTERCEPT",
+        "wrongActions": {
+          "RF_JAM": "INEFFECTIVE — Target emits NO RF signature. Fiber-optic link is unjammable. The drone continues its approach unaffected. Switch to hard-kill!",
+          "GPS_SPOOF": "INEFFECTIVE — Target is not GPS-dependent. Fiber-optic FPV drones use direct visual navigation through tethered camera feed. Spoofing has zero effect!"
+        },
+        "statusUpdate": "THREAT — Engagement window closing"
+      },
+      {
+        "time": 30,
+        "type": "ENGAGEMENT",
+        "description": "Kinetic interceptor drone launched — tracking target",
+        "particleEffect": "launch_trail",
+        "statusUpdate": "ENGAGING — Interceptor away"
+      },
+      {
+        "time": 35,
+        "type": "RESULT",
+        "description": "Direct hit confirmed. Target neutralized.",
+        "particleEffect": "explosion",
+        "result": "NEUTRALIZED",
+        "statusUpdate": "KILL CONFIRMED — Sector 4 clear"
+      }
+    ]
+  }
+}
