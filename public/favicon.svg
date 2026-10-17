@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Black background -->
+  <rect width="100" height="100" fill="#000000"/>
+
+  <!-- Outer radar ring -->
+  <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff41" stroke-width="1.2" opacity="0.6"/>
+  <!-- Inner radar ring -->
+  <circle cx="50" cy="50" r="32" fill="none" stroke="#00ff41" stroke-width="0.8" opacity="0.4"/>
+  <!-- Radar sweep glow -->
+  <path d="M50,50 L50,5 A45,45 0 0,1 90,62 Z" fill="#00ff41" opacity="0.12"/>
+
+  <!-- Eagle body (simplified geometric hawk) -->
+  <!-- Left wing -->
+  <polygon points="50,35 8,28 18,42 50,50" fill="none" stroke="#00ff41" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="18,42 8,28 14,50 50,50" fill="none" stroke="#00ff41" stroke-width="0.8" opacity="0.5"/>
+  <!-- Right wing -->
+  <polygon points="50,35 92,28 82,42 50,50" fill="none" stroke="#00ff41" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="82,42 92,28 86,50 50,50" fill="none" stroke="#00ff41" stroke-width="0.8" opacity="0.5"/>
+  <!-- Head -->
+  <polygon points="50,22 44,33 50,35 56,33" fill="none" stroke="#00ff41" stroke-width="1.2"/>
+  <!-- Beak -->
+  <polygon points="50,22 47,26 53,26" fill="#00ff41" opacity="0.8"/>
+  <!-- Body -->
+  <polygon points="44,33 56,33 58,55 50,62 42,55" fill="none" stroke="#00ff41" stroke-width="1.2"/>
+  <!-- Tail -->
+  <polygon points="42,55 50,62 58,55 54,72 50,68 46,72" fill="none" stroke="#00ff41" stroke-width="1"/>
+
+  <!-- Targeting crosshair on chest -->
+  <circle cx="50" cy="47" r="7" fill="none" stroke="#00ff41" stroke-width="1.2"/>
+  <line x1="50" y1="38" x2="50" y2="56" stroke="#00ff41" stroke-width="0.9"/>
+  <line x1="41" y1="47" x2="59" y2="47" stroke="#00ff41" stroke-width="0.9"/>
+  <!-- Crosshair corner notches -->
+  <line x1="50" y1="40" x2="50" y2="38" stroke="#00ff41" stroke-width="1.5"/>
+  <line x1="50" y1="54" x2="50" y2="56" stroke="#00ff41" stroke-width="1.5"/>
+  <line x1="43" y1="47" x2="41" y2="47" stroke="#00ff41" stroke-width="1.5"/>
+  <line x1="57" y1="47" x2="59" y2="47" stroke="#00ff41" stroke-width="1.5"/>
+
+  <!-- HUD corner brackets -->
+  <!-- Top-left -->
+  <path d="M4,4 L4,12 M4,4 L12,4" stroke="#00ff41" stroke-width="1.5" fill="none"/>
+  <!-- Top-right -->
+  <path d="M96,4 L96,12 M96,4 L88,4" stroke="#00ff41" stroke-width="1.5" fill="none"/>
+  <!-- Bottom-left -->
+  <path d="M4,96 L4,88 M4,96 L12,96" stroke="#00ff41" stroke-width="1.5" fill="none"/>
+  <!-- Bottom-right -->
+  <path d="M96,96 L96,88 M96,96 L88,96" stroke="#00ff41" stroke-width="1.5" fill="none"/>
+
+  <!-- Scanline overlay (subtle) -->
+  <rect width="100" height="100" fill="url(#scanlines)" opacity="0.08"/>
+  <defs>
+    <pattern id="scanlines" width="100" height="2" patternUnits="userSpaceOnUse">
+      <rect width="100" height="1" fill="#00ff41"/>
+    </pattern>
+  </defs>
+</svg>
