@@ -229,7 +229,7 @@ export default function BriefingPage() {
                         onClick={() => handleSelectScenario(scenario.id as ScenarioId)}
                         onMouseEnter={() => { setHoveredId(scenario.id); playButtonClick(); }}
                         onMouseLeave={() => setHoveredId(null)}
-                        className="relative text-left p-5 rounded-lg border transition-all duration-300 cursor-pointer group overflow-hidden"
+                        className="relative text-left p-5 rounded-lg border transition-all duration-300 cursor-pointer group overflow-hidden min-w-0 w-full"
                         style={{
                           background: isSelected
                             ? 'rgba(0,255,65,0.06)'
@@ -256,9 +256,9 @@ export default function BriefingPage() {
                         )}
 
                         {/* Scenario index */}
-                        <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-start justify-between mb-3 min-w-0">
                           <div
-                            className="w-11 h-11 rounded-lg flex items-center justify-center"
+                            className="w-11 h-11 flex-shrink-0 rounded-lg flex items-center justify-center"
                             style={{
                               background: isSelected ? 'rgba(0,255,65,0.1)' : 'rgba(0,255,65,0.04)',
                               border: `1px solid ${isSelected ? 'rgba(0,255,65,0.3)' : 'rgba(0,255,65,0.08)'}`,
@@ -267,7 +267,7 @@ export default function BriefingPage() {
                           >
                             <ScenarioIcon icon={scenario.icon} size={26} />
                           </div>
-                          <div className="text-right space-y-1">
+                          <div className="text-right space-y-1 ml-2 flex-shrink-0">
                             <div
                               className="text-[10px] px-2 py-0.5 rounded font-mono"
                               style={{
@@ -285,7 +285,7 @@ export default function BriefingPage() {
 
                         {/* Name */}
                         <h3
-                          className="text-base font-bold mb-0.5 transition-colors"
+                          className="text-base font-bold mb-0.5 transition-colors truncate"
                           style={{
                             fontFamily: '"Orbitron", sans-serif',
                             color: isSelected ? '#00ff41' : '#88aacc',
@@ -294,12 +294,15 @@ export default function BriefingPage() {
                         >
                           {scenario.name}
                         </h3>
-                        <p className="text-[11px] text-[#556677] mb-3" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+                        <p className="text-[11px] text-[#556677] mb-3 truncate" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
                           {scenario.subtitle}
                         </p>
 
                         {/* Description */}
-                        <p className="text-[11px] leading-relaxed text-[#445566] mb-4" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+                        <p
+                          className="text-[11px] leading-relaxed text-[#445566] mb-4 break-words"
+                          style={{ fontFamily: '"JetBrains Mono", monospace', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+                        >
                           {scenario.description}
                         </p>
 
@@ -322,11 +325,14 @@ export default function BriefingPage() {
 
                         {/* Key challenge */}
                         <div
-                          className="flex items-start gap-2 p-2 rounded"
+                          className="flex items-start gap-2 p-2 rounded overflow-hidden"
                           style={{ background: 'rgba(255,102,0,0.05)', border: '1px solid rgba(255,102,0,0.1)' }}
                         >
                           <IconWarning size={12} color="#ff6600" className="mt-0.5 flex-shrink-0" />
-                          <p className="text-[10px] text-[#ff6600]" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+                          <p
+                            className="text-[10px] text-[#ff6600] break-words min-w-0"
+                            style={{ fontFamily: '"JetBrains Mono", monospace', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+                          >
                             {scenario.keyChallenge}
                           </p>
                         </div>
@@ -417,7 +423,7 @@ export default function BriefingPage() {
 
             {/* ── Footer stats ── */}
             {showScenarios && (
-              <div className="grid grid-cols-4 gap-4 pt-4 border-t border-[rgba(0,255,65,0.06)]">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-[rgba(0,255,65,0.06)]">
                 {[
                   { label: 'THREAT TYPES', value: '3' },
                   { label: 'SENSOR SYSTEMS', value: '7' },

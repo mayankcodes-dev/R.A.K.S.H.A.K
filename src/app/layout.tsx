@@ -4,6 +4,7 @@ import { AnimatedFavicon } from "@/components/ui/RakshakLoader";
 import { ScreenFlash } from "@/components/ui/VisualEffects";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://rakshak.mayankcodes.gov'),
   title: "R.A.K.S.H.A.K. — Counter-UAS Training Simulator",
   description:
     "Real-time Airspace Knowledge System for Hostile Activity Kontainment. Browser-based C-UAS training simulator with physics-based sensor emulation.",

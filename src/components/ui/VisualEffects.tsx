@@ -192,19 +192,26 @@ export function TacticalBackground({ variant = 'default' }: {
   const pid = `rakshak-bg-${variant}`;
 
   if (variant === 'topo') {
+    // FIX: Do NOT use a repeating SVG pattern — it tiles the circles across the whole screen.
+    // Instead: render a single centered radar ring composition that fills the viewport once.
     return (
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.04]" suppressHydrationWarning>
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id={pid} x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-              <ellipse cx="60" cy="60" rx="55" ry="45" fill="none" stroke="#00ff41" strokeWidth="0.8" />
-              <ellipse cx="60" cy="60" rx="42" ry="34" fill="none" stroke="#00ff41" strokeWidth="0.8" />
-              <ellipse cx="60" cy="60" rx="29" ry="23" fill="none" stroke="#00ff41" strokeWidth="0.8" />
-              <ellipse cx="60" cy="60" rx="16" ry="12" fill="none" stroke="#00ff41" strokeWidth="0.8" />
-              <circle cx="60" cy="60" r="3" fill="none" stroke="#00ff41" strokeWidth="0.8" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill={`url(#${pid})`} />
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" suppressHydrationWarning
+        style={{ opacity: 0.045 }}>
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          {/* Single centered radar rings — no tiling */}
+          <ellipse cx="50%" cy="50%" rx="44%" ry="44%" fill="none" stroke="#00ff41" strokeWidth="0.6" />
+          <ellipse cx="50%" cy="50%" rx="35%" ry="35%" fill="none" stroke="#00ff41" strokeWidth="0.6" />
+          <ellipse cx="50%" cy="50%" rx="26%" ry="26%" fill="none" stroke="#00ff41" strokeWidth="0.6" />
+          <ellipse cx="50%" cy="50%" rx="17%" ry="17%" fill="none" stroke="#00ff41" strokeWidth="0.6" />
+          <ellipse cx="50%" cy="50%" rx="9%"  ry="9%"  fill="none" stroke="#00ff41" strokeWidth="0.6" />
+          {/* Cross-hair lines */}
+          <line x1="50%" y1="0" x2="50%" y2="100%" stroke="#00ff41" strokeWidth="0.4" />
+          <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#00ff41" strokeWidth="0.4" />
+          {/* Diagonal sweeps */}
+          <line x1="20%" y1="5%" x2="80%" y2="95%" stroke="#00ff41" strokeWidth="0.3" opacity="0.5" />
+          <line x1="80%" y1="5%" x2="20%" y2="95%" stroke="#00ff41" strokeWidth="0.3" opacity="0.5" />
+          {/* Center dot */}
+          <circle cx="50%" cy="50%" r="3" fill="#00ff41" opacity="0.5" />
         </svg>
       </div>
     );
