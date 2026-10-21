@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/rakshak-logo.jpg" width="180" alt="R.A.K.S.H.A.K. Tactical Logo"/>
+<img src="https://raw.githubusercontent.com/mayankcodes-dev/R.A.K.S.H.A.K/main/frontend/public/rakshak-logo.jpg" width="180" alt="R.A.K.S.H.A.K. Tactical Logo"/>
 
 # R.A.K.S.H.A.K.
 ### Real-time Autonomous Kinetic Simulation for Hostile Aerial Kill-chains

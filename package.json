@@ -1,35 +1,38 @@
 {
-  "name": "rakshak",
+  "name": "@rakshak/monorepo",
   "version": "0.1.0",
   "private": true,
+  "description": "R.A.K.S.H.A.K. Counter-UAS Training Simulator — SIH 2026 PS 26247, Ministry of Defence",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "simulation-engine",
+    "shared"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "@react-three/drei": "^10.7.9",
-    "@react-three/fiber": "^9.8.2",
-    "chart.js": "^4.5.1",
-    "framer-motion": "^14.3.0",
-    "next": "16.4.2",
-    "react": "19.3.0",
-    "react-chartjs-2": "^5.3.1",
-    "react-dom": "19.3.0",
-    "three": "^0.186.1",
-    "zustand": "^5.0.15"
+    "dev": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=frontend",
+    "start": "npm run start --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev\"",
+    "typecheck": "tsc --noEmit --project tsconfig.json",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "proto:compile": "pbjs -t static-module -w es6 shared/schemas/*.proto -o shared/generated/sapient.js",
+    "clean": "rimraf **/node_modules **/dist **/.next"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
-    "@tailwindcss/turbopack": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/three": "^0.186.0",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "@types/node": "^20.11.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "UNLICENSED",
+  "author": "Team RAKSHAK — SIH 2026"
 }

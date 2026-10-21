@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package sapient.v7;
+
+// NATO SAPIENT v7 Protocol Buffer Schema
+// BSI Flex 335 v2.0 — Sensor Autonomy Protocol: Intelligence, Command and Tasking
+// 
+// This schema defines the binary wire format for all SAPIENT messages exchanged
+// between sensor nodes, fusion nodes, and operator consoles in the RAKSHAK system.
+//
+// Phase 2: Compile with protoc --ts_out=. sapient-v7.proto
+// Phase 3: DTLS 1.3 transport layer for encrypted field comms.
+
+// ── Common Types ──────────────────────────────────────────────────────────────
+
+message GeoLocation {
+  double lat = 1;
+  double lon = 2;
+  double alt_m = 3;
+}
+
+message VelocityVector {
+  double north_mps = 1;
+  double east_mps  = 2;
+  double down_mps  = 3;
+}
+
+enum MessageType {
+  MESSAGE_TYPE_UNKNOWN        = 0;
+  MESSAGE_TYPE_DETECTION      = 1;
+  MESSAGE_TYPE_ALERT          = 2;
+  MESSAGE_TYPE_STATUS         = 3;
+  MESSAGE_TYPE_TASK_COMMAND   = 4;
+  MESSAGE_TYPE_PHASE_CHANGE   = 5;
+}
+
+enum DetectionClass {
+  DETECTION_CLASS_UNKNOWN              = 0;
+  DETECTION_CLASS_DRONE_SOLO           = 1;
+  DETECTION_CLASS_DRONE_SWARM          = 2;
+  DETECTION_CLASS_DRONE_FPV_FIBER      = 3;
+  DETECTION_CLASS_FIXED_WING_UAS       = 4;
+  DETECTION_CLASS_BIRD                 = 5;
+  DETECTION_CLASS_VEHICLE              = 6;
+  DETECTION_CLASS_PERSON               = 7;
+  DETECTION_CLASS_CLUTTER              = 8;
+}
+
+enum AlertSeverity {
+  ALERT_SEVERITY_INFO          = 0;
+  ALERT_SEVERITY_WARNING       = 1;
+  ALERT_SEVERITY_CRITICAL      = 2;
+  ALERT_SEVERITY_ROE_VIOLATION = 3;
+}
+
+enum SensorStatus {
+  SENSOR_STATUS_ACTIVE      = 0;
+  SENSOR_STATUS_DEGRADED    = 1;
+  SENSOR_STATUS_OFFLINE     = 2;
+  SENSOR_STATUS_MAINTENANCE = 3;
+}
+
+enum TaskCommand {
+  TASK_SEARCH   = 0;
+  TASK_TRACK    = 1;
+  TASK_CLASSIFY = 2;
+  TASK_STANDBY  = 3;
+  TASK_RESET    = 4;
+}
+
+// ── Message Definitions ───────────────────────────────────────────────────────
+
+message SAPIENTHeader {
+  string  message_id       = 1;
+  string  protocol_version = 2;  // "7.0"
+  MessageType type         = 3;
+  int64   timestamp_epoch_ms = 4;
+  string  session_id       = 5;
+}
+
+// Detection Report — emitted by sensor nodes on target contact
+message DetectionReport {
+  SAPIENTHeader header      = 1;
+  string        sensor_id   = 2;
+  string        track_id    = 3;
+  GeoLocation   location    = 4;
+  DetectionClass classification = 5;
+  float         confidence  = 6;   // 0.0 – 1.0
+  VelocityVector velocity   = 7;   // optional
+  float         rcs_estimate_m2 = 8;  // optional, NaN if unavailable
+  bool          rf_emitting = 9;   // false for fiber-optic FPV
+  float         rf_frequency_mhz = 10; // 0 if not emitting
+}
+
+// Alert — disseminated to operator consoles by fusion node
+message Alert {
+  SAPIENTHeader header      = 1;
+  AlertSeverity severity    = 2;
+  string        description = 3;
+  string        target_id   = 4;   // optional track ID
+  bool          acknowledged = 5;
+  string        acknowledged_by = 6;
+  int64         acknowledged_at_epoch_ms = 7;
+}
+
+// Status — sensor heartbeat published every 5 seconds
+message StatusReport {
+  SAPIENTHeader header    = 1;
+  string        sensor_id = 2;
+  SensorStatus  status    = 3;
+  float         battery_percent = 4;   // for mobile sensors
+  GeoLocation   location  = 5;
+}
+
+// Task Command — operator or AI tasks a sensor
+message TaskCommandMessage {
+  SAPIENTHeader header           = 1;
+  string        target_sensor_id = 2;
+  TaskCommand   command          = 3;
+  string        sector_id        = 4;  // for SEARCH
+  string        track_id         = 5;  // for TRACK/CLASSIFY
+  int32         priority_level   = 6;  // 1 = highest
+}
+
+// Phase Change — kill-chain phase transition notification
+message PhaseChangeMessage {
+  SAPIENTHeader header     = 1;
+  string        from_phase = 2;
+  string        to_phase   = 3;
+  string        operator_id = 4;
+  float         elapsed_seconds = 5;
+}

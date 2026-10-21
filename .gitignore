@@ -2,6 +2,14 @@
 
 # dependencies
 /node_modules
+node_modules/
+**/node_modules/
+
+# build outputs
+**/.next/
+**/out/
+**/build/
+**/.turbo/
 /.pnp
 .pnp.*
 .yarn/*
